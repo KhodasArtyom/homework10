@@ -5,22 +5,9 @@ import java.util.Arrays;
 import static java.lang.Character.isWhitespace;
 
 public class StringUtils {
-    public static void main(String[] args) {
-        char[] array = new char[]{'h', 'e', 'l', 'l', 'o'};
-        char[] array2 = new char[]{'h', 'e', 'p'};
-        char[] array3 = new char[]{'1', '4', '6'};
-//        boolean isEmpty = isBlank(array);
-//        System.out.println(isEmpty);
-        boolean isSubArray = contains(array, array2);
-        System.out.println(isSubArray);
-        int number = parsInt(array3);
-        System.out.println(number);
 
-
-    }
 
     public static void print(char[] array) {
-
         for (int i = 0; i < array.length; i++) {
             System.out.print(array[i]);
         }
