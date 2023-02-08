@@ -14,6 +14,13 @@ public class HomeWork9 {
         while (scanner.hasNextInt()) {
             int chooseButton = scanner.nextInt();
             switch (chooseButton) {
+                case 1-> {
+                    System.out.print("Введите строку" + "\n");
+                    StringUtils.print(ArrayUtil.getCharArray());
+                    System.out.println();
+                    System.out.println("Введте еще одну строку");
+                    StringUtils.println(ArrayUtil.getCharArray());
+                }
                 case 2 -> {
                     System.out.println("Введите строку");
                     char[] string = ArrayUtil.getCharArray();

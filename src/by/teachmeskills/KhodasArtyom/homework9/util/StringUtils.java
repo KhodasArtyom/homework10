@@ -9,14 +9,13 @@ public class StringUtils {
 
     public static void print(char[] array) {
         for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i] + "\n");
+            System.out.print(array[i]);
         }
-
     }
 
     public static void println(char[] array) {
         print(array);
-        System.out.println("\\n"); //println("")
+        System.out.println();
 
     }
     //
@@ -42,26 +41,24 @@ public class StringUtils {
     }
 
     public static boolean contains(char[] array, char[] subArray) {
-        if (array.length == 0 || subArray.length == 0) {
+        if (array.length == 0 || subArray.length == 0 || subArray.length > array.length) {
             throw new IllegalArgumentException("Неверно заданные параметры");
         }
 
-        int counterOfElements = 0;
-        int arrayLength = array.length;  //
-        int subArrayLength = subArray.length;
-
-        for (int i = 0; i < arrayLength; i++) {
-            if (array[i] == subArray[counterOfElements]) {
-                counterOfElements++;
-            } else {
-                counterOfElements = 0;
+        for (int i = 0; i < array.length - 1; i++) {
+            int sum = 0;
+            for (int j = 0; j < subArray.length; j++) {
+                if (array[i + j] != subArray[j]) {
+                    break;
+                } else {
+                    sum++;
+                }
             }
-            if (counterOfElements == subArrayLength) {
-                return true;
-            }
+            if (sum == subArray.length) return true;
         }
         return false;
     }
+
 
     public static int parsInt(char[] number) {
         int sum = 0;
