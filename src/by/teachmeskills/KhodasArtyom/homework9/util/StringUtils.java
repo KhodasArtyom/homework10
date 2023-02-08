@@ -9,18 +9,17 @@ public class StringUtils {
 
     public static void print(char[] array) {
         for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i]);
+            System.out.print(array[i] + "\n");
         }
-        System.out.println();
+
     }
 
     public static void println(char[] array) {
-        for (int i = 0; i < array.length; i++) {
-            System.out.print(array[i]);
-        }
-        System.out.println("\\n");
-        System.out.println();
+        print(array);
+        System.out.println("\\n"); //println("")
+
     }
+    //
 
     public static boolean isBlank(char[] array) {
 
@@ -35,22 +34,21 @@ public class StringUtils {
     public static boolean isRussian(char[] chars) {
 
         for (int i = 0; i < chars.length; i++) {
-            if (chars[i] < 'А' || chars[i] > 'я' && chars[i] != 'Ё' && chars[i] != 'ё') {
-                return false;
+            if ((chars[i] < 'А' || chars[i] > 'я') && chars[i] != 'Ё' && chars[i] != 'ё') {
+                return false; //
             }
         }
         return true;
     }
 
     public static boolean contains(char[] array, char[] subArray) {
-        if (array.length == 0 || subArray.length == 0 || subArray.length > array.length) {
+        if (array.length == 0 || subArray.length == 0) {
             throw new IllegalArgumentException("Неверно заданные параметры");
         }
 
-        int arrayLength, subArrayLength, counterOfElements = 0;
-
-        arrayLength = array.length;
-        subArrayLength = subArray.length;
+        int counterOfElements = 0;
+        int arrayLength = array.length;  //
+        int subArrayLength = subArray.length;
 
         for (int i = 0; i < arrayLength; i++) {
             if (array[i] == subArray[counterOfElements]) {
@@ -68,17 +66,16 @@ public class StringUtils {
     public static int parsInt(char[] number) {
         int sum = 0;
 
-        int zeroASCII = (int) '0';//48
+        int zeroASCII = '0';//48
         for (int i = 0; i < number.length; i++) {
-            if (number[i] < (int) '0' || number[i] > (int) '9') {
+            if (number[i] < '0' || number[i] > '9') {
                 throw new IllegalArgumentException("Неверно введенные символы");
             }
-            int tmpAscii = (int) number[i];
+            int tmpAscii = number[i];
             sum = (sum * 10) + (tmpAscii - zeroASCII);
         }
         return sum;
     }
-
 
 }
 
