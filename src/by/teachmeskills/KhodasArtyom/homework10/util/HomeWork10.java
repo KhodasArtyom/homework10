@@ -10,7 +10,8 @@ public class HomeWork10 {
                 "Task2\n" +
                 "Task3\n" +
                 "Task4\n" +
-                "Task5\n" + "\n");
+                "Task5\n" +
+                "Task6" + "\n");
         while (scanner.hasNextInt()) {
             int chooseButton = scanner.nextInt();
             switch (chooseButton) {
@@ -22,6 +23,7 @@ public class HomeWork10 {
                 case 2 -> {
                     System.out.println("Введите номер кредитной карты");
                     String formatCardNumber = StringEdit.getFormatNumberOfCreditCard(StringEdit.getPhrase());
+                    System.out.println(formatCardNumber);
                 }
                 case 3 -> {
                     System.out.println("Введите свои инициалы");
@@ -41,6 +43,7 @@ public class HomeWork10 {
                 case 6 -> {
                     System.out.println("Введите электронный адрес для проверки");
                     boolean result = StringEdit.isEmailCorrect(StringEdit.getPhrase());
+                    System.out.println(result);
                 }
                 case 0 -> {
                     System.out.println("Спасибо, что воспользовалсь программой. До свидания");

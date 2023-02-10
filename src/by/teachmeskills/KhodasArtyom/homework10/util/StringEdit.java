@@ -1,11 +1,9 @@
 package by.teachmeskills.KhodasArtyom.homework10.util;
 
-import java.text.DecimalFormat;
-import java.util.Arrays;
-import java.util.Locale;
 import java.util.Scanner;
 
 public class StringEdit {
+
 
 
     public static String editTHeString(String string) {
@@ -19,28 +17,18 @@ public class StringEdit {
     }
 
     public static String getFormatNumberOfCreditCard(String cardNumber) {
+        final int CARD_LENGTH = 4 * 4;
+        final int LAST4NUMBERS = 4;
         System.out.println("Номер карты: " + cardNumber);
-        char[] elementsOfCardNumber = cardNumber.toCharArray();
-        if (elementsOfCardNumber.length != 16) {
+
+        if (cardNumber.length() != CARD_LENGTH) {
             throw new IllegalArgumentException("Неверный формат номера кредитной карты. Введте 16 цифр");
-        }
-        int i = 0;
-        while (i < elementsOfCardNumber.length - 4) {
-            elementsOfCardNumber[i] = '*';
-            i++;
+        } else {
+            return "**** **** **** " + cardNumber.substring(CARD_LENGTH - LAST4NUMBERS);
+
 
         }
-        String formatString = String.valueOf(elementsOfCardNumber);
-        System.out.println(formatString);
-        String sub1 = formatString.substring(0, 4);
-        String sub2 = formatString.substring(4, 8);
-        String sub3 = formatString.substring(8, 12);
-        String sub4 = formatString.substring(13, 16);
-        String resultString = sub1 + sub2 + sub3 + sub4 + " ";
-        System.out.println(sub1 + " " + sub2 + " " + sub3 + " " + sub4);
 
-
-        return resultString;
     }
 
     public static void getInitials(String surName, String name, String surname2) {
@@ -61,42 +49,50 @@ public class StringEdit {
     }
 
     public static boolean сheckPassportData(String passNumber) {
-        boolean result = false;
-        if (passNumber.length() == 9 && passNumber.charAt(0) >= 'A' && passNumber.charAt(0) <= 'Z' && passNumber.charAt(1) >= 'A' && passNumber.charAt(1) <= 'Z') {
-            result = true;
+        final int PASSPORT_DIGIT_LENGTH = 7;
+        final int PASSPORT_SERIES_LENGTH = 2;
+        final int PASSPORT_FULL_NUMBER = PASSPORT_SERIES_LENGTH + PASSPORT_DIGIT_LENGTH;
+
+        if (passNumber.length() != PASSPORT_FULL_NUMBER) {
+            return false;
         }
-        char[] numbers = passNumber.toCharArray();
-        for (int i = 2; i < numbers.length; i++) {
-            if (numbers[i] < '0' && numbers[i] > '9') {
-                result = false;
+        for (int i = 0; i < PASSPORT_SERIES_LENGTH; i++) {
+            if (!StringEdit.isUpperCaseChar(passNumber.charAt(i))) {
+                return false;
             }
         }
-        return result;
-
+        for (int i = PASSPORT_SERIES_LENGTH; i < PASSPORT_FULL_NUMBER; i++) {
+            if (!StringEdit.isDigit(passNumber.charAt(i))) {
+                return false;
+            }
+        }
+        return true;
     }
 
+
     public static boolean isReliablePassword(String string) {
-        int passwordLength = 8;
-        int upCaseChars = 0;
-        int lowCaseChars = 0;
-        int digit = 0;
+        final int PASSWORD_LENGTH = 8;
+        boolean upCaseChars = false;
+        boolean lowCaseChars = false;
+        boolean digit = false;
 
         int total = string.length();
-        if (total < passwordLength) {
-            throw new IllegalArgumentException("Пароль слишком короткий");
+        if (total < PASSWORD_LENGTH) {
+            System.out.println("Пароль слишком короткий");
+            return false;
         } else {
             for (int i = 0; i < total; i++) {
                 char ch = string.charAt(i);
-                if (Character.isUpperCase(ch)) {
-                    upCaseChars = 1;
-                } else if (Character.isLowerCase(ch)) {
-                    lowCaseChars = 1;
-                } else if (Character.isDigit(ch)) {
-                    digit = 1;
+                if (!upCaseChars && Character.isUpperCase(ch)) {
+                    upCaseChars = true;
+                } else if (!lowCaseChars && Character.isLowerCase(ch)) {
+                    lowCaseChars = true;
+                } else if (!digit && Character.isDigit(ch)) {
+                    digit = true;
 
                 }
             }
-            if (upCaseChars == 1 & lowCaseChars == 1 && digit == 1) {
+            if (upCaseChars & lowCaseChars && digit) {
                 return true;
             } else {
                 return false;
@@ -105,31 +101,25 @@ public class StringEdit {
     }
 
     public static boolean isEmailCorrect(String string) {
-        int countSpaceSymbol = 0;
-        int countDogSymbol = 0;
-        String stringWithoutSpace = string.trim();
-        for (int i = 0; i < stringWithoutSpace.length(); i++) {
-            boolean isSpaceSymbol = Character.isSpaceChar(stringWithoutSpace.charAt(i));
-            if (isSpaceSymbol) {
-                countSpaceSymbol++;
-                if (countSpaceSymbol == 1) {
-                    throw new IllegalArgumentException("Ошибка. Пробелы не должны фигуриовать в email адресе");
-                }
-                if (stringWithoutSpace.contains("@")) {
-                    countDogSymbol++;
-                    if (countDogSymbol > 1 || countDogSymbol == 0) {
-                        throw new IllegalArgumentException("Ошибка.");
-                    }
-                }
-            }
+        if (string.contains(" ")) {
+            return false;
         }
-        char[] emailSymbols = stringWithoutSpace.toCharArray();
-        for (int i = 0; i < emailSymbols.length; i++) {
-
+        int indexAtString= string.indexOf("@");
+        boolean isSingle = indexAtString != -1 && indexAtString==string.lastIndexOf("@");
+        if(!isSingle) {
+            return false;
         }
+        boolean isCharsAround = indexAtString !=0 && indexAtString!=string.length()-1;
+        return isCharsAround;
 
+    }
 
-        return true;
+    public static boolean isUpperCaseChar(char ch) {
+        return ch >= 'A' && ch <= 'Z';
+    }
+
+    public static boolean isDigit(char ch) {
+        return ch >= '0' && ch <= '9';
     }
 
 }
